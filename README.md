@@ -26,6 +26,44 @@ https://api-fake-blog.onrender.com/postagens/
 https://api-fake-blog.onrender.com/postagem/1
 ```
 
+## Para listar as categorias:
+
+```
+https://api-fake-blog.onrender.com/categorias
+```
+
+## Para listar as postagens da categoria games:
+
+```
+https://api-fake-blog.onrender.com/categoria/games
+```
+
+## Para criar uma categoria:
+
+```http
+POST /categorias
+Content-Type: application/json
+
+{
+	"nome": "games"
+}
+```
+
+## Para editar uma postagem:
+
+```http
+PUT /postagem/1
+Content-Type: application/json
+
+{
+	"titulo": "Novo título",
+	"conteudo": "Novo conteúdo",
+	"categoria": "games"
+}
+```
+
+Antes de publicar, execute o arquivo `supabase.sql` no SQL Editor do Supabase e configure `SUPABASE_SECRET_KEY` nas variáveis de ambiente do Render.
+
 
 ## Clonando o Repositório ##
 Com o Git e o Node.js instalado na sua maquina e a **URL** do projeto em mãos, cria em algum lugar do seu pc uma pasta para criarmos uma copia do repositório, dentro dela abra o **cmd** ou **powershell** e digite os comandos abaixo:
