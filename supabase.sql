@@ -14,3 +14,39 @@ create table if not exists postagens (
 insert into categorias (nome)
 values ('games')
 on conflict (nome) do nothing;
+
+insert into postagens (titulo, conteudo, categoria)
+select 'Google Notícias completa 20 anos com redesign e fundo de apoio ao jornalismo independente',
+       'Na última semana, o Google apresentou uma nova versão para desktop do seu serviço de notícias. Após um redesign profundo, o Google Notícias promete informar mais sobre os temas que os usuários acompanham, com mais profundidade e facilidade de acesso.',
+       'tecnologia'
+where not exists (select 1 from postagens where titulo = 'Google Notícias completa 20 anos com redesign e fundo de apoio ao jornalismo independente');
+
+insert into postagens (titulo, conteudo, categoria)
+select 'Vendas do Macbook Pro com chip M2 começam nesta sexta-feira (24)',
+       'Durante a WWDC deste ano, a Apple anunciou diversas novidades em seus sistemas e produtos, incluindo um Macbook Air redesenhado e com a segunda geração de chips da empresa, o M2.',
+       'tecnologia'
+where not exists (select 1 from postagens where titulo = 'Vendas do Macbook Pro com chip M2 começam nesta sexta-feira (24)');
+
+insert into postagens (titulo, conteudo, categoria)
+select 'Citroen Ami Buggy: O carro mais simpático que você já viu até hoje',
+       '17 minutos para esgotar e apenas 2 minutos e 53 segundos para vender a primeira unidade. Estes são os números incríveis das vendas das 50 unidades especiais e ultra limitadas do My Ami Buggy, da Citroen.',
+       'carros'
+where not exists (select 1 from postagens where titulo = 'Citroen Ami Buggy: O carro mais simpático que você já viu até hoje');
+
+insert into postagens (titulo, conteudo, categoria)
+select 'SEGA anuncia Hyenas, novo FPS no espaço pós-apocalíptico',
+       'O mundo dos jogos competitivos nunca foi tão diverso, e o anúncio feito pela SEGA nesta quarta-feira promete contribuir com outro título promissor.',
+       'games'
+where not exists (select 1 from postagens where titulo = 'SEGA anuncia Hyenas, novo FPS no espaço pós-apocalíptico');
+
+insert into postagens (titulo, conteudo, categoria)
+select 'Metaverso explode em discussões na internet, mas público ainda tem receios',
+       'De acordo com números consolidados pela Comscore, apenas 24% dos comentários da internet sobre o metaverso são positivos. O motivo seria o desconhecimento do público acerca do assunto, que ainda desperta dúvidas e receios.',
+       'metaverso'
+where not exists (select 1 from postagens where titulo = 'Metaverso explode em discussões na internet, mas público ainda tem receios');
+
+insert into postagens (titulo, conteudo, categoria)
+select 'Como o metaverso e a web3 revolucionarão a vida e os negócios?',
+       'A ideia de criar mundos inteiramente fictícios e com possibilidades infinitas sempre encantou o ser humano. O desejo pela materialização daquilo que a criatividade e a mente podem elaborar move montanhas, além de muito dinheiro.',
+       'web3'
+where not exists (select 1 from postagens where titulo = 'Como o metaverso e a web3 revolucionarão a vida e os negócios?');
