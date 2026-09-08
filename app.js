@@ -44,19 +44,39 @@ app.get('/categorias', async (req,res)=>{
 })
 
 //EDITAR UMA POSTAGEM
-app.put('/postagem/:index', async (req,res) =>{
+const editarPostagem = async (req,res) =>{
     const { index } = req.params;
-    const { titulo, conteudo, categoria } = req.body;
+    const titulo = req.body.titulo || req.body.title;
+    const conteudo = req.body.conteudo || req.body.description;
+    const categoria = req.body.categoria || req.body.category;
+    const alteracoes = {};
+
+    if (titulo !== undefined) alteracoes.titulo = titulo;
+    if (conteudo !== undefined) alteracoes.conteudo = conteudo;
+    if (categoria !== undefined) alteracoes.categoria = categoria;
+
+    if (Object.keys(alteracoes).length === 0) {
+        return res.status(400).json({ erro: 'Informe ao menos um campo para editar' })
+    }
+
     const { data, error } = await supabase
         .from('postagens')
-        .update({ titulo, conteudo, categoria })
+        .update(alteracoes)
         .eq('id', index)
         .select()
         .single()
 
-    if (error) return res.status(500).json({ erro: error.message })
+    if (error) {
+        if (error.code === 'PGRST116') {
+            return res.status(404).json({ erro: 'Postagem não encontrada' })
+        }
+        return res.status(500).json({ erro: error.message })
+    }
     return res.json(data)
-})
+}
+
+app.put('/postagem/:index', editarPostagem)
+app.put('/postagens/:index', editarPostagem)
 
 //LISTAR UMA POSTAGEM
 const listarPostagem = async (req,res) =>{
