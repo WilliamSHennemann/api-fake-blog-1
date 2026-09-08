@@ -59,7 +59,7 @@ app.put('/postagem/:index', async (req,res) =>{
 })
 
 //LISTAR UMA POSTAGEM
-app.get('/postagem/:index', async (req,res) =>{
+const listarPostagem = async (req,res) =>{
     const { index } = req.params;
     const { data, error } = await supabase
         .from('postagens')
@@ -67,9 +67,17 @@ app.get('/postagem/:index', async (req,res) =>{
         .eq('id', index)
         .single()
 
-    if (error) return res.status(500).json({ erro: error.message })
+    if (error) {
+        if (error.code === 'PGRST116') {
+            return res.status(404).json({ erro: 'Postagem não encontrada' })
+        }
+        return res.status(500).json({ erro: error.message })
+    }
     return res.json(data)
-})
+}
+
+app.get('/postagem/:index', listarPostagem)
+app.get('/postagens/:index', listarPostagem)
 
 //LISTAR CATEGORIA GAMES
 app.get('/categoria/games', async (req,res) =>{
