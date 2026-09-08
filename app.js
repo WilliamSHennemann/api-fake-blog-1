@@ -17,6 +17,11 @@ app.use(express.urlencoded({
 
 app.use('/img', express.static(__dirname + '/public/images'));
 
+//PAGINA INICIAL
+app.get('/', (req,res)=>{
+    res.json({ mensagem: 'API Fake Blog funcionando' })
+})
+
 
 //LISTAR TODAS AS POSTAGENS
 app.get('/postagens', async (req,res)=>{
